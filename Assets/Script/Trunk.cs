@@ -34,6 +34,7 @@ public class Trunk : MonoBehaviour
         if(colli.gameObject.name == "Samurai")
         {
             Destroy(this.gameObject);
+
         }
     }
 }
