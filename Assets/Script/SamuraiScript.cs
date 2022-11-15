@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SamuraiScript : MonoBehaviour
 {
@@ -11,25 +12,33 @@ public class SamuraiScript : MonoBehaviour
 
     public LayerMask groundLayer;
 
+    public Button attack;
+
+    public float dash;
+
     const float groundCheckRadius = 0.01f;
     int availableJumps;
     [SerializeField] float jumpPower = 500;
     public int totalJumps;
-    private int limiar;
+    public int limiar;
 
 
     public bool isGrounded = true;
     bool coyoteJump;
     bool multipleJump;
+
+    private float speed = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
         availableJumps = totalJumps;
 
-        limiar = Screen.width / 15;
+        limiar = Screen.width;
 
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();   
+        anim = GetComponent<Animator>();
+
+        Button bnt = attack.GetComponent<Button>();
     }
 
     // Update is called once per frame
@@ -37,18 +46,19 @@ public class SamuraiScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Jump();        
+            Jump();
         }
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+       
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Vector2 touchAlfa = Input.GetTouch(0).deltaPosition;
-            if (touchAlfa.x < limiar)
+            var touch = Input.GetTouch(0);
+            if(touch.position.x < Screen.width / 2)
             {
                 Jump();
             }
         }
 
-            anim.SetFloat("yVelocity", rb.velocity.y);
+        anim.SetFloat("yVelocity", rb.velocity.y);
     }
 
     void FixedUpdate()
@@ -67,7 +77,7 @@ public class SamuraiScript : MonoBehaviour
         bool wasGrounded = isGrounded;
         isGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);
-        if(colliders.Length > 0)
+        if (colliders.Length > 0)
         {
             isGrounded = true;
 
@@ -120,4 +130,5 @@ public class SamuraiScript : MonoBehaviour
         }
     }
     #endregion
+
 }
