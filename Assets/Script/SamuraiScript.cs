@@ -38,7 +38,6 @@ public class SamuraiScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        Button bnt = attack.GetComponent<Button>();
     }
 
     // Update is called once per frame
@@ -129,6 +128,18 @@ public class SamuraiScript : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Colliders
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Tronco")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     #endregion
 
 }
