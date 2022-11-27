@@ -6,7 +6,7 @@ public class deployTrunk : MonoBehaviour
 {
     public GameObject[] trunkPrefab;
     GameObject[] instanciatedObjects;
-    public float respawnTime = 20.0f;
+    public float respawnTime;
     Vector2 screenBounds;
     
     // Start is called before the first frame update

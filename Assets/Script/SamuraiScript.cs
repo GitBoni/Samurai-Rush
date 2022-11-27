@@ -51,7 +51,7 @@ public class SamuraiScript : MonoBehaviour
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             var touch = Input.GetTouch(0);
-            if(touch.position.x < Screen.width / 2)
+            if(touch.position.x > Screen.width / 2)
             {
                 Jump();
             }
