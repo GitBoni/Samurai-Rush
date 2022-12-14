@@ -41,5 +41,10 @@ public class Trunk : MonoBehaviour
             Score.GetComponent<Points>().SavePoints();
 
         }
+
+        if(colli.gameObject.name == "AttackBox")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

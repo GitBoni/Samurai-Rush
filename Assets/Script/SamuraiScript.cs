@@ -7,12 +7,13 @@ public class SamuraiScript : MonoBehaviour
 {
     public Animator anim;
     Rigidbody2D rb;
+    public GameObject AttackBox, trunk;
 
     public Transform groundCheckCollider;
 
     public LayerMask groundLayer;
 
-    public Button attack;
+    public bool attack = false;
 
     public float dash;
 
@@ -55,9 +56,28 @@ public class SamuraiScript : MonoBehaviour
             {
                 Jump();
             }
-        }
+            else if(isGrounded == true)
+            {
+                anim.SetBool("IsDashing", true);
+                attack = true;
+            }
 
+        }
+        
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") && attack == true)
+        {
+            StartCoroutine(endAnimation());
+        }
+        
         anim.SetFloat("yVelocity", rb.velocity.y);
+    }
+
+    IEnumerator endAnimation()
+    {
+        yield return new WaitForSeconds(0.1f);
+        attack = false;
+        anim.SetBool("IsDashing", false);
+
     }
 
     void FixedUpdate()
